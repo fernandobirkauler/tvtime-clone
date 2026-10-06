@@ -11,6 +11,9 @@ export async function db() {
       user: process.env.DB_USER || "trakt",
       password: process.env.DB_PASSWORD || "trakt123",
       database: process.env.DB_NAME || "trakt",
+      ...(process.env.DB_SSL === "true"
+        ? { ssl: { rejectUnauthorized: false } }
+        : {}),
     });
   }
   if (!schemaReady) {
